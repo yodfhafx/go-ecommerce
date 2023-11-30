@@ -56,7 +56,7 @@ CREATE TABLE "orders" (
   "user_id" varchar,
   "contact" varchar,
   "address" varchar,
-  "slip" jsonb,
+  "transfer_slip" jsonb,
   "status" varchar,
   "created_at" timestamp,
   "updated_at" timestamp
@@ -66,7 +66,7 @@ CREATE TABLE "products_orders" (
   "id" varchar PRIMARY KEY,
   "order_id" varchar,
   "qty" int,
-  "product" jonb
+  "product" jsonb
 );
 
 ALTER TABLE "users" ADD FOREIGN KEY ("role_id") REFERENCES "roles" ("id");

@@ -33,7 +33,7 @@ CREATE TYPE "order_status" AS ENUM (
 
 --Create users table
 CREATE TABLE "users" (
-  "id" VARCHAR(8) PRIMARY KEY DEFAULT CONCAT('U', LPAD(NEXTVAL('users_id_seq')::TEXT, 7, '0')),
+  "id" VARCHAR(7) PRIMARY KEY DEFAULT CONCAT('U', LPAD(NEXTVAL('users_id_seq')::TEXT, 6, '0')),
   "username" VARCHAR UNIQUE NOT NULL,
   "password" VARCHAR NOT NULL,
   "email" VARCHAR UNIQUE NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE "roles" (
 
 --Create products table
 CREATE TABLE "products" (
-  "id" VARCHAR(8) PRIMARY KEY DEFAULT CONCAT('P', LPAD(NEXTVAL('products_id_seq')::TEXT, 7, '0')),
+  "id" VARCHAR(7) PRIMARY KEY DEFAULT CONCAT('P', LPAD(NEXTVAL('products_id_seq')::TEXT, 6, '0')),
   "title" VARCHAR NOT NULL,
   "description" VARCHAR NOT NULL DEFAULT '',
   "price" FLOAT NOT NULL DEFAULT 0,
@@ -78,7 +78,7 @@ CREATE TABLE "images" (
 CREATE TABLE "products_categories" (
   "id" uuid NOT NULL UNIQUE PRIMARY KEY DEFAULT uuid_generate_v4(),
   "product_id" VARCHAR NOT NULL,
-  "category_id" INT NOT NULL,
+  "category_id" INT NOT NULL
 );
 
 CREATE TABLE "categories" (
@@ -88,11 +88,11 @@ CREATE TABLE "categories" (
 
 --Create orders table
 CREATE TABLE "orders" (
-  "id" VARCHAR(8) PRIMARY KEY DEFAULT CONCAT('O', LPAD(NEXTVAL('orders_id_seq')::TEXT, 7, '0')),
+  "id" VARCHAR(7) PRIMARY KEY DEFAULT CONCAT('O', LPAD(NEXTVAL('orders_id_seq')::TEXT, 6, '0')),
   "user_id" VARCHAR NOT NULL,
   "contact" VARCHAR NOT NULL,
   "address" VARCHAR NOT NULL,
-  "slip" jsonb,
+  "transfer_slip" jsonb,
   "status" order_status NOT NULL,
   "created_at" TIMESTAMP NOT NULL DEFAULT NOW(),
   "updated_at" TIMESTAMP NOT NULL DEFAULT NOW()
@@ -102,7 +102,7 @@ CREATE TABLE "products_orders" (
   "id" uuid NOT NULL UNIQUE PRIMARY KEY DEFAULT uuid_generate_v4(),
   "order_id" VARCHAR NOT NULL,
   "qty" INT NOT NULL DEFAULT 1,
-  "product" jonb
+  "product" jsonb
 );
 
 ALTER TABLE "users" ADD FOREIGN KEY ("role_id") REFERENCES "roles" ("id");
